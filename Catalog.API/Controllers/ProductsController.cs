@@ -6,7 +6,14 @@ namespace Catalog.API.Controllers;
 
 public class ProductsController : ApiController
 {
-    IRepository<Product , int > repository;
+    //IRepository<Product , int > repository;
+
+    private readonly IProductRepository _repository;
+
+    public ProductsController(IProductRepository repository){
+        _repository = repository;
+
+    }
     public ProductsController()
     {
     }
@@ -15,7 +22,8 @@ public class ProductsController : ApiController
     public async Task<ActionResult<IEnumerable<Product>>> GetProductsAsync()
     {
         //? fetch data from DB
-    return await Task.FromResult(Ok());
+        var products = await _repository.GetEntitiesAsync();
+    return await Task.FromResult(Ok(products));
     }
 
 
@@ -23,6 +31,7 @@ public class ProductsController : ApiController
     public async Task<ActionResult<Product>> AddProductsAsync(
         [FromBody]Product product )
     {
-    return await Task.FromResult(Ok());
+        await _repository.AddAsync(product);
+        return await Task.FromResult(Ok(product));
     }
 }

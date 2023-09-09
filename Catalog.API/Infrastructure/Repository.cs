@@ -3,7 +3,7 @@ using Catalog.API.Abstractions;
 
 namespace Catalog.API.Infrastructure
 {
-    public class Repository<TEntity , TId> : IRepository<TEntity , TId>
+    public abstract class Repository<TEntity , TId> : IRepository<TEntity , TId>
     where TEntity : IEntity<TId>
    {
 
