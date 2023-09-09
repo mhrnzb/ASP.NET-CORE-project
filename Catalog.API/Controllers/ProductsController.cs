@@ -1,11 +1,10 @@
 using Catalog.API.Models;
 using Microsoft.AspNetCore.Mvc;
-
+using Catalog.API.Abstractions;
 namespace Catalog.API.Controllers;
 
-[ApiController]
-[Route("[controller]")]
-public class ProductsController : ControllerBase
+
+public class ProductsController : ApiController
 {
     public ProductsController()
     {
