@@ -1,3 +1,4 @@
+using Catalog.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalog.API.Controllers;
@@ -11,8 +12,8 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<Product> Get()
+    public async Task<ActionResult<IEnumerable<Product>>> GetProductsAsync()
     {
-    return Ok();
+    return await Task.FromResult(Ok());
     }
 }
