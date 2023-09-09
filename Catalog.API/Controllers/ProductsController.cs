@@ -16,4 +16,12 @@ public class ProductsController : ControllerBase
     {
     return await Task.FromResult(Ok());
     }
+
+
+    [HttpPost]
+    public async Task<ActionResult<Product>> AddProductsAsync(
+        [FromBody]Product product )
+    {
+    return await Task.FromResult(Ok());
+    }
 }
