@@ -1,8 +1,11 @@
 
 namespace Catalog.API.Application.Contracts
-{
-    public interface IRepository
-    {
-        
+{ 
+    //? product/customer
+    public interface IRepository<TEntity>
+    { 
+        Task AddAsync(TEntity entity);
+
+        Task <IEnumerable<TEntity>> GetEntitiesAsync();
     }
 }
