@@ -1,6 +1,7 @@
 
 namespace Catalog.API.Models
 {
+    //? Anemic model 
     public class Product
     {
         public int Id { get; set; }
