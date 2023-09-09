@@ -13,6 +13,7 @@ public class ProductsController : ApiController
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Product>>> GetProductsAsync()
     {
+        //? fetch data from DB
     return await Task.FromResult(Ok());
     }
 
