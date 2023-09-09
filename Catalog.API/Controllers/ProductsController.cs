@@ -1,11 +1,12 @@
 using Catalog.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Catalog.API.Abstractions;
+using Catalog.API.Application.Contracts;
 namespace Catalog.API.Controllers;
-
 
 public class ProductsController : ApiController
 {
+    IRepository<Product , int > repository;
     public ProductsController()
     {
     }
