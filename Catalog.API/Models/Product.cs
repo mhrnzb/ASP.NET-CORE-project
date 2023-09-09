@@ -1,11 +1,13 @@
 
+using Catalog.API.Abstractions;
+
 namespace Catalog.API.Models
 {
     //? Anemic model 
-    public class Product
+    public class Product : Entiity<int>
     {
         //?Guid , Identity , Custom value(string )
-        public int Id { get; set; }
+        //public int Id { get; set; }
 
 
         public string Name { get; set; }
