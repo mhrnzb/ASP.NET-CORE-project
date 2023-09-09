@@ -4,7 +4,7 @@ using Catalog.API.Abstractions;
 namespace Catalog.API.Models
 {
     //? Anemic model 
-    public class Product : Entiity<int>
+    public class Product : Entity<int>
     {
         //?Guid , Identity , Custom value(string )
         //public int Id { get; set; }
