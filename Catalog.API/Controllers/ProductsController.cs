@@ -24,7 +24,7 @@ public class ProductsController : ApiController
 
         return await Task.FromResult(Ok(products));
     }
-
+ 
     [HttpPost]
     public async Task<ActionResult<Product>> AddProductAsync(
         [FromBody] Product product)
