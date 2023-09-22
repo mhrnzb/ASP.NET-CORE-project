@@ -1,17 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Catalog.API.Abstractions;
 
-namespace Catalog.API.Models
+namespace Catalog.API.Models;
+
+public class Customer : Entity<Guid>
 {
-    public class Customer : Entiity<Guid>
+    // public new Guid Id { get; set; }
+    public string? FullName { get; set; }
+
+    //? Other Properties
+
+    public Customer()
     {
-        //public Guid Id { get; set; }
-
-        public string FullName { get; set; }
-
-        //? other Properties 
+        Id = Guid.NewGuid();
     }
 }

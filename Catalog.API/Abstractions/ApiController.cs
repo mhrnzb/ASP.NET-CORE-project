@@ -4,14 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Catalog.API.Abstractions
+namespace Catalog.API.Abstractions;
+
+[ApiController]
+[Route("[controller]")]
+public class ApiController : ControllerBase
 {
-
-
-    [ApiController]
-    [Route("[controller]")]
-    public class ApiController :  ControllerBase
-    {
-        
-    }
+    
 }
