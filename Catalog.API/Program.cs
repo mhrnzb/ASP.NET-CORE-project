@@ -1,5 +1,6 @@
 using Catalog.API.Application.Contracts;
 using Catalog.API.Infrastructure;
+using Catalog.API.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
