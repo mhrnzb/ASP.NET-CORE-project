@@ -38,17 +38,28 @@ public class ProductsController : ApiController
 
     [HttpPost]
     public async Task<ActionResult<Product>> AddProductAsync(
-        [FromBody] ProductForAddDto productDto)
+        [FromBody] ProductForAddDto productDtoForAddDto)
     {
+        //?conversion
         var product = new Product
         {
-            Name = productDto.Name,
-            Price = productDto.Price,
-            Description = productDto.Description
+            Name = productDtoForAddDto.Name,
+            Price = productDtoForAddDto.Price,
+            Description = productDtoForAddDto.Description
         };
 
         await _repository.AddAsync(product);
 
-        return await Task.FromResult(Ok(product));
+
+        //?conversion 
+        
+        var productDto = new ProductDto(
+            product.Id,
+            product.Name,
+            product.Price,
+            product.Description
+        );
+
+        return await Task.FromResult(Ok(productDto));
     }
 }
