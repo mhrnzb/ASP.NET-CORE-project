@@ -17,7 +17,7 @@ namespace Catalog.API.Application.Dtos;
     // }
 
 
-public record ProductForAddDto(
+public sealed record ProductForAddDto(
     string Name,
     int Price,
     string Description
