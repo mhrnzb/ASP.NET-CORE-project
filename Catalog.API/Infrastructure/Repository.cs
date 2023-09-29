@@ -25,10 +25,11 @@ where TEntity : Entity<TId>
     public  async Task AddAsync(TEntity entity)
     {
        await _set.AddAsync(entity);
+       await _context.SaveChangesAsync();
     }
 
-    public Task<IEnumerable<TEntity>> GetEntitiesAsync()
+    public async Task<IEnumerable<TEntity>> GetEntitiesAsync()
     {
-        throw new NotImplementedException();
+       return await _set.ToListAsync();
     }
 }
