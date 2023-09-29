@@ -3,7 +3,7 @@ using Catalog.API.Abstractions;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Catalog.API.Infrastructure;
+namespace Catalog.API.Infrastructure.Repositories;
 
 
 public abstract class Repository<TEntity, TId> : IRepository<TEntity, TId>
