@@ -4,7 +4,19 @@ namespace Catalog.API.Application.Dtos;
 
     public class ProductForAddDto
     {
-        public string Name {get; set;}
-        public int Price {get; set;}
-        public string Description{get; set;}
+        public string Name {get; init;}
+        public int Price {get; init;}
+        public string Description{get; init;}
+
+        public ProductForAddDto(string name , int price , string description){
+            Name = name ;
+            Price = price;
+            Description = description;
+        }
+
+
+
+
+
+
     }
