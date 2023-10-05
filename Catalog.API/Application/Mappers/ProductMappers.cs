@@ -1,4 +1,3 @@
-
 using AutoMapper;
 using Catalog.API.Application.Dtos;
 using Catalog.API.Models;

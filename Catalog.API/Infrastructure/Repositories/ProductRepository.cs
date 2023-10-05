@@ -8,8 +8,6 @@ public sealed class ProductRepository : Repository<Product, int>, IProductReposi
 {
     public ProductRepository(CatalogContext context) : base(context)
     {
-       
 
-    
     }
 }
