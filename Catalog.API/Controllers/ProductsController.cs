@@ -2,8 +2,11 @@ using Catalog.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Catalog.API.Abstractions;
 using Catalog.API.Application.Contracts;
-using Catalog.API.Application.Dtos;
+using Catalog.API.Application.Dtos.Products;
 using AutoMapper;
+using Catalog.API.Application.Dtos.Common;
+using Catalog.API.Application.Contracts.Data;
+using System.Text.Json;
 
 namespace Catalog.API.Controllers;
 
@@ -20,14 +23,47 @@ public class ProductsController : ApiController
         _mapper = mapper;
     }
 
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Product>>> GetProductsAsync()
-    {
-        //? Fetch Data From DB
-        var products = await _repository.GetEntitiesAsync();
+    // [HttpGet]
+    // public async Task<ActionResult<IEnumerable<Product>>> GetProductsAsync()
+    // {
+    //     //? Fetch Data From DB
+    //     var products = await _repository.GetEntitiesAsync();
 
-        return Ok(products);
+    //     return Ok(products);
+    // }
+
+    // [HttpGet("filter")]
+    // public async Task<ActionResult<IEnumerable<ProductDto>>> FilterProductsAsync(
+    //     [FromQuery] string? filter,
+    //     [FromQuery] int pageSize,
+    //     [FromQuery] int pageIndex)
+    // {
+    //     //? Price > 150
+    //     // var products = await _repository.FilterAsync(product => product.Price > 150);
+    //     var products = await _repository.FilterAsync(filter, pageSize, pageIndex);
+
+    //     var productsDto = _mapper.Map<IEnumerable<ProductDto>>(products);
+
+    //     return Ok(productsDto);
+    // }
+
+    [HttpGet("filter")]
+    public async Task<ActionResult<IEnumerable<ProductDto>>> FilterProductsAsync(
+        [FromQuery]FilterDataDto data)
+    {
+        var filterData = _mapper.Map<FilterData>(data);
+
+        var productsPagedList = await _repository.FilterAsync(filterData);
+
+        var productsDto = _mapper.Map<IEnumerable<ProductDto>>(productsPagedList.Items);
+
+        //? Meta Data
+        Response.Headers.Add("X-PagingData", JsonSerializer.Serialize(productsPagedList.Paging));
+
+        //? Pay load
+        return Ok(productsDto);
     }
+
 
     [HttpGet("{id}")]
     public async Task<ActionResult<ProductDto>> GetProductByIdAsync([FromRoute] int id)
@@ -44,62 +80,10 @@ public class ProductsController : ApiController
         return Ok(productDto);
     }
 
-    // [HttpPost]
-    // public async Task<ActionResult<Product>> AddProductAsync(
-    //     [FromBody] Product product)
-    // {
-    //     await _repository.AddAsync(product);
-
-    //     return await Task.FromResult(Ok(product));
-    // }
-
-
-    // [HttpPost]
-    // public async Task<ActionResult<Product>> AddProductAsync(
-    //     [FromBody] ProductForAddDto productForAddDto)
-    // {
-    //     //? Conversion
-    //     var product = new Product
-    //     {
-    //         Name = productForAddDto.Name,
-    //         Price = productForAddDto.Price,
-    //         Description = productForAddDto.Description,
-    //     };
-
-    //     await _repository.AddAsync(product);
-
-    //     //? Conversion
-    //     var productDto = new ProductDto(
-    //         product.Id,
-    //         product.Name,
-    //         product.Price,
-    //         product.Description
-    //     );
-
-    //     return await Task.FromResult(Ok(productDto));
-    // }
-
     [HttpPost]
     public async Task<ActionResult<Product>> AddProductAsync(
             [FromBody] ProductForAddDto productForAddDto)
     {
-        //? Invariant Rules
-        // if (!string.IsNullOrEmpty(productForAddDto.Name))
-        // {
-        //     return BadRequest("Name is a required.");
-        // }
-
-        // if (!(productForAddDto.Name.Length < 2))
-        // {
-        //     return BadRequest("Name minimum lenght is 3.");
-        // }
-
-        // if (!(productForAddDto.Name.Length > 50))
-        // {
-        //     return BadRequest("Name maximum lenght is 50.");
-        // }
-
-        //? Conversion
         var product = _mapper.Map<Product>(productForAddDto);
 
         await _repository.AddAsync(product);
@@ -115,26 +99,6 @@ public class ProductsController : ApiController
             [FromRoute] int id,
             [FromBody] ProductForUpdateDto productForUpdateDto)
     {
-        //? Invariant Rules
-        // if (!string.IsNullOrEmpty(productForUpdateDto.Name))
-        // {
-        //     return BadRequest("Name is a required.");
-        // }
-
-        // if (!(productForUpdateDto.Name.Length < 2))
-        // {
-        //     return BadRequest("Name minimum lenght is 3.");
-        // }
-
-        // if (!(productForUpdateDto.Name.Length > 50))
-        // {
-        //     return BadRequest("Name maximum lenght is 50.");
-        // }
-
-        //? Conversion
-        // var product = _mapper.Map<Product>(productForUpdateDto);
-        // product.Id = id;
-
         var product = await _repository.GetByIdAsync(id);
 
         if (product is null)
