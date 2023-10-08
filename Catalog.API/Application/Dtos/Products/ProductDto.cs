@@ -1,4 +1,4 @@
-namespace Catalog.API.Application.Dtos.Products;
+namespace Catalog.API.Application.Dtos;
 
 public sealed record ProductDto(
     int Id,
